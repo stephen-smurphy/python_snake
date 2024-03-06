@@ -12,18 +12,22 @@ import data
 
 # YASP imports
 from object_foods import FoodBlock, FoodBlockKind
+from object_walls import WallBlock, WallBlockKind
 
 
 class Score(object):
     def __init__(self, unit, surface_rect):
         self.unit = unit
-        self.image = pygame.Surface((self.unit*11, self.unit*11))
+        self.image = pygame.Surface((self.unit*11, self.unit*25))
         self.rect = self.image.get_rect()
         self.rect.right = surface_rect.left
         self.rect.y = surface_rect.y
         self.score = 0
         self.seconds = 0
         self.length = 0
+        self.instruction1 = "Eat"
+        self.instruction2 = "Avoid"
+        self.instruction3 = "Bonus"
         self.font = pygame.font.Font(data.filepath(
             "font", "abel.ttf"), int(self.unit*2.3))
 
@@ -31,6 +35,9 @@ class Score(object):
         self.sprites.append(
             FoodBlock(self.unit*2, (4, 1), FoodBlockKind.APPLE))
         self.sprites.append(FoodBlock(self.unit*2, (4, 3), FoodBlockKind.GOLD))
+        self.sprites.append(FoodBlock(self.unit*2, (4, 5), FoodBlockKind.APPLE))
+        self.sprites.append(WallBlock(self.unit*2, (4, 7), WallBlockKind.SOLID))
+        self.sprites.append(FoodBlock(self.unit*2, (4, 9), FoodBlockKind.GOLD))
 
     @property
     def elapse(self):
@@ -49,7 +56,7 @@ class Score(object):
 
         self.image.fill((50, 50, 50))
 
-        lines = [str(self.score), self.elapse]
+        lines = [str(self.score), self.elapse, self.instruction1, self.instruction2, self.instruction3]
 
         for ii in range(len(lines)):
             text = lines[ii]

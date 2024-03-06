@@ -71,8 +71,8 @@ class WallBlock(pygame.sprite.DirtySprite):
         self.rect.y = position[1] * self.unit
 
         if self.kind == WallBlockKind.SOLID:
-            color = (50, 50, 205)
-            color2 = (50, 50, 205)
+            color = (211, 211, 211)
+            color2 = (105, 105, 105)
             self.is_alive = -1  # forever
 
         self.layer = 10
